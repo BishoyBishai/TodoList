@@ -1,20 +1,29 @@
 import React from "react";
 import "./Header.css";
 
+/**
+ * 
+ * We Remove the business logic from the Header Component and we change the props to receive more values 
+ * We remove the config prop because it is not one of the best practice to change the config file from component  
+ * Adding completedTodosCount to not calculate it into the header 
+ */
+
 export const Header = ({
   todos,
-  data,
-  config,
+  isAllComplete,
   onToggleAll,
   sortValue,
-  onSortChange
+  onSortChange,
+  completedTodosCount,
 }) => {
-  const completedTodosCount = todos.filter((todo) => todo.completed).length;
-  const areAllTodosCompleted = completedTodosCount === data?.length;
+
 
   const onChangeHandler = (event) => {
     onSortChange(event.target.value);
-    config.sorted = true;
+  };
+
+  const handleToggleAll = () => {
+    onToggleAll(!isAllComplete);
   };
 
   return (
@@ -28,19 +37,15 @@ export const Header = ({
         <select
           className="header-sort_select"
           value={sortValue}
-          onChange={(event) => onChangeHandler(event)}
+          onChange={onChangeHandler}
         >
           <option value="">default</option>
+          <option value="title">Title</option>
           <option value="completed">Completed</option>
         </select>
 
         <span className="header-toggle_label">Complete all</span>
-
-        <input
-          type="checkbox"
-          checked={areAllTodosCompleted}
-          onChange={() => onToggleAll(areAllTodosCompleted)}
-        />
+        <input type="checkbox" checked={isAllComplete} onChange={handleToggleAll} />
       </div>
     </div>
   );

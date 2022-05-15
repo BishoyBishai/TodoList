@@ -2,5 +2,6 @@
   "completed_all": false,
   "select_all": false,
   "todos": [],
-  "sorting": false
+  "sorting": false,
+  "image_base_url": "https://randomuser.me"
 }
